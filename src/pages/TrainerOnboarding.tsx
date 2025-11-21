@@ -41,67 +41,45 @@ const TrainerOnboarding = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="professional-title">Professional Title *</Label>
+                <Label htmlFor="full-name">Full Name *</Label>
                 <Input
-                  id="professional-title"
+                  id="full-name"
+                  placeholder="Your Full Name"
+                  required
+                  maxLength={100}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="title">Professional Title *</Label>
+                <Input
+                  id="title"
                   placeholder="e.g., Senior Software Engineer, Marketing Specialist"
+                  required
+                  maxLength={100}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="experience-years">Years of Experience *</Label>
+                <Input
+                  id="experience-years"
+                  type="number"
+                  min="0"
+                  placeholder="5"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="expertise">Primary Area of Expertise *</Label>
-                <Select required>
-                  <SelectTrigger id="expertise">
-                    <SelectValue placeholder="Select your expertise" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="technology">Technology & Programming</SelectItem>
-                    <SelectItem value="business">Business & Management</SelectItem>
-                    <SelectItem value="design">Design & Creative</SelectItem>
-                    <SelectItem value="marketing">Marketing & Sales</SelectItem>
-                    <SelectItem value="health">Health & Wellness</SelectItem>
-                    <SelectItem value="language">Language & Communication</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="experience">Years of Experience *</Label>
-                <Select required>
-                  <SelectTrigger id="experience">
-                    <SelectValue placeholder="Select experience level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="0-2">0-2 years</SelectItem>
-                    <SelectItem value="3-5">3-5 years</SelectItem>
-                    <SelectItem value="6-10">6-10 years</SelectItem>
-                    <SelectItem value="10+">10+ years</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="teaching-experience">Teaching Experience *</Label>
-                <Select required>
-                  <SelectTrigger id="teaching-experience">
-                    <SelectValue placeholder="Select teaching experience" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="beginner">Just starting out</SelectItem>
-                    <SelectItem value="some">Some experience (1-2 years)</SelectItem>
-                    <SelectItem value="experienced">Experienced (3-5 years)</SelectItem>
-                    <SelectItem value="expert">Expert (5+ years)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="certifications">Certifications (if any)</Label>
+                <Label htmlFor="hourly-rate">Hourly Rate (₹) *</Label>
                 <Input
-                  id="certifications"
-                  placeholder="List your relevant certifications"
+                  id="hourly-rate"
+                  type="number"
+                  min="0"
+                  step="100"
+                  placeholder="2000"
+                  required
                 />
               </div>
 
@@ -116,25 +94,33 @@ const TrainerOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="linkedin">LinkedIn Profile</Label>
+                <Label htmlFor="linkedin-url">LinkedIn Profile</Label>
                 <Input
-                  id="linkedin"
+                  id="linkedin-url"
                   type="url"
                   placeholder="https://linkedin.com/in/yourprofile"
+                  maxLength={255}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="availability">Weekly Availability *</Label>
+                <Label htmlFor="location">Location *</Label>
+                <Input
+                  id="location"
+                  placeholder="City, State"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="availability">Availability Status *</Label>
                 <Select required>
                   <SelectTrigger id="availability">
-                    <SelectValue placeholder="Select your availability" />
+                    <SelectValue placeholder="Select availability" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1-5">1-5 hours/week</SelectItem>
-                    <SelectItem value="6-10">6-10 hours/week</SelectItem>
-                    <SelectItem value="11-20">11-20 hours/week</SelectItem>
-                    <SelectItem value="20+">20+ hours/week</SelectItem>
+                    <SelectItem value="available">Available</SelectItem>
+                    <SelectItem value="not-available">Not Available</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

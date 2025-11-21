@@ -46,56 +46,32 @@ const VendorOnboarding = () => {
                   id="business-name"
                   placeholder="Your Company Name"
                   required
+                  maxLength={255}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="business-type">Business Type *</Label>
+                <Label htmlFor="vendor-type">Vendor Type *</Label>
                 <Select required>
-                  <SelectTrigger id="business-type">
-                    <SelectValue placeholder="Select business type" />
+                  <SelectTrigger id="vendor-type">
+                    <SelectValue placeholder="Select vendor type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="retail">Retail</SelectItem>
-                    <SelectItem value="wholesale">Wholesale</SelectItem>
-                    <SelectItem value="services">Services</SelectItem>
-                    <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="training_org">Training Organization</SelectItem>
+                    <SelectItem value="consultancy">Consultancy</SelectItem>
+                    <SelectItem value="corporate">Corporate</SelectItem>
+                    <SelectItem value="educational">Educational Institution</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="industry">Industry *</Label>
-                <Select required>
-                  <SelectTrigger id="industry">
-                    <SelectValue placeholder="Select industry" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="technology">Technology</SelectItem>
-                    <SelectItem value="healthcare">Healthcare</SelectItem>
-                    <SelectItem value="education">Education</SelectItem>
-                    <SelectItem value="finance">Finance</SelectItem>
-                    <SelectItem value="retail">Retail</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="company-size">Company Size *</Label>
-                <Select required>
-                  <SelectTrigger id="company-size">
-                    <SelectValue placeholder="Select company size" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1-10">1-10 employees</SelectItem>
-                    <SelectItem value="11-50">11-50 employees</SelectItem>
-                    <SelectItem value="51-200">51-200 employees</SelectItem>
-                    <SelectItem value="201-500">201-500 employees</SelectItem>
-                    <SelectItem value="500+">500+ employees</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="gst-id">GST ID</Label>
+                <Input
+                  id="gst-id"
+                  placeholder="22AAAAA0000A1Z5"
+                  maxLength={15}
+                />
               </div>
 
               <div className="space-y-2">
@@ -104,26 +80,103 @@ const VendorOnboarding = () => {
                   id="website"
                   type="url"
                   placeholder="https://yourwebsite.com"
+                  maxLength={255}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Business Description *</Label>
-                <Textarea
-                  id="description"
-                  placeholder="Tell us about your business, products, and services..."
-                  className="min-h-32"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
+                <Label htmlFor="contact-name">Contact Name *</Label>
                 <Input
-                  id="location"
-                  placeholder="City, Country"
+                  id="contact-name"
+                  placeholder="Primary Contact Person"
                   required
+                  maxLength={100}
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="contact-phone">Contact Phone *</Label>
+                <Input
+                  id="contact-phone"
+                  placeholder="+919876543210"
+                  required
+                  maxLength={15}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="contact-email">Contact Email *</Label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  placeholder="contact@company.com"
+                  required
+                  maxLength={255}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="address-line1">Address Line 1 *</Label>
+                <Input
+                  id="address-line1"
+                  placeholder="Street Address"
+                  required
+                  maxLength={255}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="address-line2">Address Line 2</Label>
+                <Input
+                  id="address-line2"
+                  placeholder="Building, Suite, etc."
+                  maxLength={255}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="city">City *</Label>
+                  <Input
+                    id="city"
+                    placeholder="City"
+                    required
+                    maxLength={100}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="state">State *</Label>
+                  <Input
+                    id="state"
+                    placeholder="State"
+                    required
+                    maxLength={100}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="postal-code">Postal Code *</Label>
+                  <Input
+                    id="postal-code"
+                    placeholder="110001"
+                    required
+                    maxLength={20}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="country">Country *</Label>
+                  <Input
+                    id="country"
+                    placeholder="India"
+                    defaultValue="India"
+                    required
+                    maxLength={100}
+                  />
+                </div>
               </div>
 
               <Button type="submit" className="w-full" size="lg" disabled={isLoading}>

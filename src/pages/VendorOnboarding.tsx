@@ -36,14 +36,14 @@ const VendorOnboarding = () => {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="text-3xl">Vendor Profile Setup</CardTitle>
-            <CardDescription>Tell us about your business to get started</CardDescription>
+            <CardDescription>Tell us about your business - MatchaTrainer</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="business-name">Business Name *</Label>
+                <Label htmlFor="name">Organization Name *</Label>
                 <Input
-                  id="business-name"
+                  id="name"
                   placeholder="Your Company Name"
                   required
                   maxLength={255}
@@ -51,16 +51,16 @@ const VendorOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="vendor-type">Vendor Type *</Label>
+                <Label htmlFor="vendor-type-id">Vendor Type *</Label>
                 <Select required>
-                  <SelectTrigger id="vendor-type">
+                  <SelectTrigger id="vendor-type-id">
                     <SelectValue placeholder="Select vendor type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="training_org">Training Organization</SelectItem>
-                    <SelectItem value="consultancy">Consultancy</SelectItem>
-                    <SelectItem value="corporate">Corporate</SelectItem>
-                    <SelectItem value="educational">Educational Institution</SelectItem>
+                    <SelectItem value="1">Training Organization</SelectItem>
+                    <SelectItem value="2">Consultancy</SelectItem>
+                    <SelectItem value="3">Corporate</SelectItem>
+                    <SelectItem value="4">Educational Institution</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -71,6 +71,8 @@ const VendorOnboarding = () => {
                   id="gst-id"
                   placeholder="22AAAAA0000A1Z5"
                   maxLength={15}
+                  pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                  title="GST ID must match format: 22AAAAA0000A1Z5"
                 />
               </div>
 
@@ -98,9 +100,12 @@ const VendorOnboarding = () => {
                 <Label htmlFor="contact-phone">Contact Phone *</Label>
                 <Input
                   id="contact-phone"
+                  type="tel"
                   placeholder="+919876543210"
                   required
                   maxLength={15}
+                  pattern="^\+91[0-9]{10}$"
+                  title="Phone number must be in format +91XXXXXXXXXX"
                 />
               </div>
 

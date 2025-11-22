@@ -11,7 +11,7 @@ const RoleSelection = () => {
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">Choose Your Path</h1>
-          <p className="text-muted-foreground">Select your role to continue with personalized onboarding</p>
+          <p className="text-muted-foreground">MatchaTrainer - Select your role to continue</p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-6">

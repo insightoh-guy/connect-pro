@@ -24,7 +24,7 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-secondary/30 p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-3xl font-bold">Welcome</CardTitle>
+          <CardTitle className="text-3xl font-bold">Welcome to MatchaTrainer</CardTitle>
           <CardDescription>Sign in to your account or create a new one</CardDescription>
         </CardHeader>
         <CardContent>
@@ -36,7 +36,7 @@ const Auth = () => {
             <TabsContent value="login">
               <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="login-email">Email</Label>
+                  <Label htmlFor="login-email">Email *</Label>
                   <Input
                     id="login-email"
                     type="email"
@@ -45,7 +45,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="login-password">Password</Label>
+                  <Label htmlFor="login-password">Password *</Label>
                   <Input
                     id="login-password"
                     type="password"
@@ -60,29 +60,44 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Full Name</Label>
+                  <Label htmlFor="signup-name">Full Name *</Label>
                   <Input
                     id="signup-name"
                     type="text"
                     placeholder="John Doe"
                     required
+                    maxLength={100}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-phone">Phone Number *</Label>
+                  <Input
+                    id="signup-phone"
+                    type="tel"
+                    placeholder="+919876543210"
+                    required
+                    maxLength={15}
+                    pattern="^\+91[0-9]{10}$"
+                    title="Phone number must be in format +91XXXXXXXXXX"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-email">Email *</Label>
                   <Input
                     id="signup-email"
                     type="email"
                     placeholder="name@example.com"
                     required
+                    maxLength={255}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">Password *</Label>
                   <Input
                     id="signup-password"
                     type="password"
                     required
+                    minLength={8}
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>

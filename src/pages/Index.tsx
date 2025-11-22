@@ -7,8 +7,8 @@ const Index = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold">Welcome to Your Professional Network</h1>
-        <p className="text-xl text-muted-foreground">Connect, grow, and succeed together</p>
+        <h1 className="text-4xl font-bold">Welcome to MatchaTrainer</h1>
+        <p className="text-xl text-muted-foreground">Connect with expert trainers and quality training organizations</p>
         <Button onClick={() => navigate("/auth")} size="lg">
           Get Started
         </Button>

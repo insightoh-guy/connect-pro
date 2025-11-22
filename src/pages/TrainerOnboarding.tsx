@@ -36,7 +36,7 @@ const TrainerOnboarding = () => {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="text-3xl">Trainer Profile Setup</CardTitle>
-            <CardDescription>Share your expertise and teaching experience</CardDescription>
+            <CardDescription>Share your expertise - MatchaTrainer</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -51,45 +51,43 @@ const TrainerOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="title">Professional Title *</Label>
+                <Label htmlFor="title">Professional Title</Label>
                 <Input
                   id="title"
                   placeholder="e.g., Senior Software Engineer, Marketing Specialist"
-                  required
                   maxLength={100}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="experience-years">Years of Experience *</Label>
+                <Label htmlFor="experience-years">Years of Experience</Label>
                 <Input
                   id="experience-years"
                   type="number"
                   min="0"
                   placeholder="5"
-                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="hourly-rate">Hourly Rate (₹) *</Label>
+                <Label htmlFor="hourly-rate-cents">Hourly Rate (₹)</Label>
                 <Input
-                  id="hourly-rate"
+                  id="hourly-rate-cents"
                   type="number"
                   min="0"
                   step="100"
                   placeholder="2000"
-                  required
+                  title="Rate will be stored in paise (smallest currency unit)"
                 />
+                <p className="text-xs text-muted-foreground">Enter amount in rupees (will be converted to paise)</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="bio">Professional Bio *</Label>
+                <Label htmlFor="bio">Professional Bio</Label>
                 <Textarea
                   id="bio"
                   placeholder="Share your background, teaching philosophy, and what makes you unique..."
                   className="min-h-32"
-                  required
                 />
               </div>
 
@@ -104,23 +102,23 @@ const TrainerOnboarding = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
+                <Label htmlFor="location-id">Location</Label>
                 <Input
-                  id="location"
-                  placeholder="City, State"
-                  required
+                  id="location-id"
+                  placeholder="City, State (Location ID will be assigned)"
                 />
+                <p className="text-xs text-muted-foreground">This will be linked to location database</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="availability">Availability Status *</Label>
-                <Select required>
+                <Label htmlFor="availability">Availability Status</Label>
+                <Select>
                   <SelectTrigger id="availability">
                     <SelectValue placeholder="Select availability" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="available">Available</SelectItem>
-                    <SelectItem value="not-available">Not Available</SelectItem>
+                    <SelectItem value="true">Available</SelectItem>
+                    <SelectItem value="false">Not Available</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

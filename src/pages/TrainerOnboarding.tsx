@@ -17,7 +17,7 @@ const TrainerOnboarding = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate("/");
+      navigate("/trainer-dashboard");
     }, 1500);
   };
 

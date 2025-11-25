@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { 
   ArrowLeft,
@@ -14,7 +15,9 @@ import {
   Clock,
   Building2,
   Search,
-  Filter
+  Filter,
+  Info,
+  Check
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -23,6 +26,9 @@ const ApplyJob = () => {
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [filterLevel, setFilterLevel] = useState("all");
+  const [appliedJobs, setAppliedJobs] = useState<number[]>([]);
+  const [selectedJob, setSelectedJob] = useState<typeof availableJobs[0] | null>(null);
+  const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
   // Mock data - will be replaced with real data from backend
   const availableJobs = [
@@ -97,10 +103,18 @@ const ApplyJob = () => {
   ];
 
   const handleApply = (jobId: number, jobTitle: string) => {
-    toast({
-      title: "Application Submitted!",
-      description: `Your application for "${jobTitle}" has been submitted successfully.`,
-    });
+    if (!appliedJobs.includes(jobId)) {
+      setAppliedJobs([...appliedJobs, jobId]);
+      toast({
+        title: "Application Submitted!",
+        description: `Your application for "${jobTitle}" has been submitted successfully.`,
+      });
+    }
+  };
+
+  const handleShowInfo = (job: typeof availableJobs[0]) => {
+    setSelectedJob(job);
+    setIsInfoDialogOpen(true);
   };
 
   const filteredJobs = availableJobs.filter(job => {
@@ -237,12 +251,31 @@ const ApplyJob = () => {
                       <Badge variant="secondary" className="mt-1 capitalize">{job.level}</Badge>
                     </div>
                   </div>
-                  <Button 
-                    size="lg"
-                    onClick={() => handleApply(job.id, job.title)}
-                  >
-                    Apply Now
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      onClick={() => handleShowInfo(job)}
+                    >
+                      <Info className="w-4 h-4 mr-2" />
+                      Info
+                    </Button>
+                    <Button 
+                      size="lg"
+                      onClick={() => handleApply(job.id, job.title)}
+                      className={appliedJobs.includes(job.id) ? "bg-green-600 hover:bg-green-700" : ""}
+                      disabled={appliedJobs.includes(job.id)}
+                    >
+                      {appliedJobs.includes(job.id) ? (
+                        <>
+                          <Check className="w-4 h-4 mr-2" />
+                          Applied
+                        </>
+                      ) : (
+                        "Apply Now"
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -257,6 +290,132 @@ const ApplyJob = () => {
           </Card>
         )}
       </div>
+
+      {/* Info Dialog */}
+      <Dialog open={isInfoDialogOpen} onOpenChange={setIsInfoDialogOpen}>
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          {selectedJob && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{selectedJob.title}</DialogTitle>
+                <DialogDescription className="flex items-center gap-2 text-base">
+                  <Building2 className="w-4 h-4" />
+                  {selectedJob.vendor}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                {/* Description */}
+                <div>
+                  <h4 className="font-semibold mb-2">Description</h4>
+                  <p className="text-muted-foreground">{selectedJob.description}</p>
+                </div>
+
+                {/* Job Details */}
+                <div>
+                  <h4 className="font-semibold mb-3">Job Details</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="w-4 h-4 mt-1 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-medium">Location</p>
+                        <p className="text-sm text-muted-foreground">{selectedJob.location}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Calendar className="w-4 h-4 mt-1 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-medium">Duration</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(selectedJob.startDate).toLocaleDateString()} - {new Date(selectedJob.endDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Clock className="w-4 h-4 mt-1 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-medium">Training Duration</p>
+                        <p className="text-sm text-muted-foreground">{selectedJob.duration}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Users className="w-4 h-4 mt-1 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-medium">Participants</p>
+                        <p className="text-sm text-muted-foreground">{selectedJob.participants} participants</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Badge variant={selectedJob.type === "online" ? "default" : "secondary"}>
+                        {selectedJob.type}
+                      </Badge>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Badge variant="secondary" className="capitalize">
+                        {selectedJob.level}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Required Skills */}
+                <div>
+                  <h4 className="font-semibold mb-3">Required Skills</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedJob.skills.map((skill, idx) => (
+                      <Badge key={idx} variant="outline">{skill}</Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Compensation */}
+                <div className="bg-secondary/50 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-3">Compensation Details</h4>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Hourly Rate</p>
+                      <p className="text-xl font-bold">₹{selectedJob.hourlyRate.toLocaleString()}/hour</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-muted-foreground">Total Compensation</p>
+                      <p className="text-2xl font-bold text-primary">₹{selectedJob.totalCompensation.toLocaleString()}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4">
+                  <Button 
+                    className="flex-1"
+                    size="lg"
+                    onClick={() => {
+                      handleApply(selectedJob.id, selectedJob.title);
+                      setIsInfoDialogOpen(false);
+                    }}
+                    disabled={appliedJobs.includes(selectedJob.id)}
+                  >
+                    {appliedJobs.includes(selectedJob.id) ? (
+                      <>
+                        <Check className="w-4 h-4 mr-2" />
+                        Applied
+                      </>
+                    ) : (
+                      "Apply Now"
+                    )}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    onClick={() => setIsInfoDialogOpen(false)}
+                  >
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

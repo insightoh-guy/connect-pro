@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Verification from "./pages/Verification";
 import RoleSelection from "./pages/RoleSelection";
 import VendorOnboarding from "./pages/VendorOnboarding";
 import TrainerOnboarding from "./pages/TrainerOnboarding";
@@ -33,6 +34,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/verification" element={<Verification />} />
               <Route path="/role-selection" element={<RoleSelection />} />
               <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
               <Route path="/trainer-onboarding" element={<TrainerOnboarding />} />

@@ -12,9 +12,17 @@ const TrainerOnboarding = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // Convert form data to object
+    const formValues = Object.fromEntries(formData.entries());
+    console.log('Form data:', formValues);
+    
     setTimeout(() => {
       setIsLoading(false);
       navigate("/trainer-dashboard");
@@ -39,7 +47,7 @@ const TrainerOnboarding = () => {
             <CardDescription>Share your expertise - MatchaTrainer</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form id="trainer-onboarding-form" onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="full-name">Full Name *</Label>
                 <Input
@@ -89,6 +97,27 @@ const TrainerOnboarding = () => {
                   placeholder="Share your background, teaching philosophy, and what makes you unique..."
                   className="min-h-32"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <div className="flex">
+                  <div className="flex items-center justify-center px-3 border border-r-0 rounded-l-md bg-muted text-sm text-muted-foreground">
+                    +91
+                  </div>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="9876543210"
+                    required
+                    maxLength={10}
+                    minLength={10}
+                    pattern="[6-9][0-9]{9}"
+                    title="Please enter a valid 10-digit phone number"
+                    className="rounded-l-none"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">

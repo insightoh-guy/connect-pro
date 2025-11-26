@@ -12,9 +12,17 @@ const VendorOnboarding = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // Convert form data to object
+    const formValues = Object.fromEntries(formData.entries());
+    console.log('Form data:', formValues);
+    
     setTimeout(() => {
       setIsLoading(false);
       navigate("/vendor-dashboard");
@@ -39,7 +47,7 @@ const VendorOnboarding = () => {
             <CardDescription>Tell us about your business - MatchaTrainer</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form id="vendor-onboarding-form" onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">Organization Name *</Label>
                 <Input
@@ -98,15 +106,23 @@ const VendorOnboarding = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="contact-phone">Contact Phone *</Label>
-                <Input
-                  id="contact-phone"
-                  type="tel"
-                  placeholder="+919876543210"
-                  required
-                  maxLength={15}
-                  pattern="^\+91[0-9]{10}$"
-                  title="Phone number must be in format +91XXXXXXXXXX"
-                />
+                <div className="flex">
+                  <div className="flex items-center justify-center px-3 border border-r-0 rounded-l-md bg-muted text-sm text-muted-foreground">
+                    +91
+                  </div>
+                  <Input
+                    id="contact-phone"
+                    name="contact-phone"
+                    type="tel"
+                    placeholder="9876543210"
+                    required
+                    maxLength={10}
+                    minLength={10}
+                    pattern="[6-9][0-9]{9}"
+                    title="Please enter a valid 10-digit phone number"
+                    className="rounded-l-none"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">

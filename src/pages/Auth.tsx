@@ -10,9 +10,25 @@ const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // For signup form, prepend +91 to the phone number
+    if (form.id === 'signup-form') {
+      const phoneInput = form.querySelector('input[type="tel"]') as HTMLInputElement;
+      if (phoneInput) {
+        formData.set('phone', `+91${phoneInput.value}`);
+      }
+    }
+    
+    // Convert form data to object
+    const formValues = Object.fromEntries(formData.entries());
+    console.log('Form data:', formValues);
+    
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
@@ -71,15 +87,22 @@ const Auth = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-phone">Phone Number *</Label>
-                  <Input
-                    id="signup-phone"
-                    type="tel"
-                    placeholder="+919876543210"
-                    required
-                    maxLength={15}
-                    pattern="^\+91[0-9]{10}$"
-                    title="Phone number must be in format +91XXXXXXXXXX"
-                  />
+                  <div className="flex">
+                    <div className="flex items-center justify-center px-3 border border-r-0 rounded-l-md bg-muted text-sm text-muted-foreground">
+                      +91
+                    </div>
+                    <Input
+                      id="signup-phone"
+                      type="tel"
+                      placeholder="9876543210"
+                      required
+                      maxLength={10}
+                      minLength={10}
+                      pattern="[6-9][0-9]{9}"
+                      title="Please enter a valid 10-digit phone number"
+                      className="rounded-l-none"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-email">Email *</Label>

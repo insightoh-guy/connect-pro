@@ -32,7 +32,12 @@ const Auth = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      navigate("/role-selection");
+      // Signup goes to verification, login goes to role-selection (will be proper dashboard later)
+      if (form.id === 'signup-form') {
+        navigate("/verification");
+      } else {
+        navigate("/role-selection");
+      }
     }, 1000);
   };
 

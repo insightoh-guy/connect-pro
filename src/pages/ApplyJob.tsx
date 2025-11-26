@@ -27,6 +27,7 @@ const ApplyJob = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterLevel, setFilterLevel] = useState("all");
   const [appliedJobs, setAppliedJobs] = useState<number[]>([]);
+  const [savedJobs, setSavedJobs] = useState<number[]>([]);
   const [selectedJob, setSelectedJob] = useState<typeof availableJobs[0] | null>(null);
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
@@ -115,6 +116,16 @@ const ApplyJob = () => {
   const handleShowInfo = (job: typeof availableJobs[0]) => {
     setSelectedJob(job);
     setIsInfoDialogOpen(true);
+  };
+
+  const handleSave = (jobId: number) => {
+    if (!savedJobs.includes(jobId)) {
+      setSavedJobs([...savedJobs, jobId]);
+      toast({
+        title: "Job Saved!",
+        description: "This training opportunity has been saved to your list.",
+      });
+    }
   };
 
   const filteredJobs = availableJobs.filter(job => {
@@ -406,9 +417,18 @@ const ApplyJob = () => {
                   <Button 
                     variant="outline" 
                     size="lg"
-                    onClick={() => setIsInfoDialogOpen(false)}
+                    onClick={() => handleSave(selectedJob.id)}
+                    className={savedJobs.includes(selectedJob.id) ? "bg-green-600 hover:bg-green-700 text-white border-green-600" : ""}
+                    disabled={savedJobs.includes(selectedJob.id)}
                   >
-                    Close
+                    {savedJobs.includes(selectedJob.id) ? (
+                      <>
+                        <Check className="w-4 h-4 mr-2" />
+                        Saved ✔️
+                      </>
+                    ) : (
+                      "Save"
+                    )}
                   </Button>
                 </div>
               </div>

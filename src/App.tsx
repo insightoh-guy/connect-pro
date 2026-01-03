@@ -13,7 +13,11 @@ import RoleSelection from "./pages/RoleSelection";
 import VendorOnboarding from "./pages/VendorOnboarding";
 import TrainerOnboarding from "./pages/TrainerOnboarding";
 import TrainerDashboard from "./pages/TrainerDashboard";
+import TrainerProfile from "./pages/TrainerProfile";
+import TrainerSettings from "./pages/TrainerSettings";
 import VendorDashboard from "./pages/VendorDashboard";
+import VendorProfile from "./pages/VendorProfile";
+import VendorSettings from "./pages/VendorSettings";
 import ApplyJob from "./pages/ApplyJob";
 import NotFound from "./pages/NotFound";
 
@@ -39,7 +43,11 @@ const App = () => {
               <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
               <Route path="/trainer-onboarding" element={<TrainerOnboarding />} />
               <Route path="/trainer-dashboard" element={<TrainerDashboard />} />
+              <Route path="/trainer-profile" element={<TrainerProfile />} />
+              <Route path="/trainer-settings" element={<TrainerSettings />} />
               <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+              <Route path="/vendor-profile" element={<VendorProfile />} />
+              <Route path="/vendor-settings" element={<VendorSettings />} />
               <Route path="/apply-job" element={<ApplyJob />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
